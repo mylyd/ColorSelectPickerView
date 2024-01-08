@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <com.example.colorselectpickerview.color_select.ColorSelectPreviewView
+        android:id="@+id/cpv_color_preview"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="12dp"
+        tools:background="#FFFF0000" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fl_color"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="36dp"
+        app:cardBackgroundColor="#FFFF0000"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/color_select_shape_white_gradually_trans" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/color_select_shape_black_gradually_trans" />
+
+        <View
+            android:id="@+id/view_location"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/color_select_shape_stroke_dot" />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.example.colorselectpickerview.color_select.RoundFrameLayout
+        android:id="@+id/rl_color_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        app:radius="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_color_progress"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/color_select_shape_red_green_01" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/color_select_shape_red_green_02" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/color_select_shape_green_blue_01" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/color_select_shape_green_blue_02" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/color_select_shape_blue_red_01" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/color_select_shape_blue_red_02" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_color_bar"
+            android:layout_width="20dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/color_select_shape_color_pick_bar" />
+
+    </com.example.colorselectpickerview.color_select.RoundFrameLayout>
+
+    <com.example.colorselectpickerview.color_select.RoundFrameLayout
+        android:id="@+id/rl_trans_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        app:radius="5dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@drawable/color_select_bg_trans_01" />
+
+        <ImageView
+            android:id="@+id/view_trans_preview"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical" />
+
+        <View
+            android:id="@+id/view_trans_bar"
+            android:layout_width="20dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/color_select_shape_color_pick_bar" />
+
+    </com.example.colorselectpickerview.color_select.RoundFrameLayout>
+
+</LinearLayout>
