@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="RoundFrameLayout">
-        <attr name="radius" format="dimension" />
+    <declare-styleable name="RainbowColorBarView">
+        <!--圆角半径-->
+        <attr name="round" format="dimension" />
+        <attr name="graph_type" format="enum">
+            <!--彩虹色条-->
+            <enum name="color_strip" value="1" />
+            <!--透明度控制条-->
+            <enum name="alpha_strip" value="2" />
+            <!--预览-->
+            <enum name="preview_strip" value="3" />
+        </attr>
+        <!--预览是否是圆形，默认是矩形，仅在设 graph_type = preview_strip 时生效 ； 且圆形的直径大小取决于高度，不会取决于宽度-->
+        <attr name="preview_circle" format="boolean" />
     </declare-styleable>
 
 </resources>
