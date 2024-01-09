@@ -1,4 +1,4 @@
-package com.example.colorselectpickerview.color_select
+package com.select.color_picker
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,25 +14,24 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.annotation.ColorInt
-import com.example.colorselectpickerview.R
 
 /**
  *
  * @author lyd
  * @time 2024/1/9 09:46:46
  */
-class RainbowColorBarView : View {
+class RainbowColorView : View {
 
     private var paint: Paint? = null
     private var srcPaint: Paint? = null
-
     private var rectF: RectF? = null
-    private var canvasRadius: Float = 0f //半径
-    private var canvasType: Int = 0
-    private var isPreviewCircle: Boolean = false
 
-    private var colors: IntArray? = null
-    private var positions: FloatArray? = null
+    private var canvasRadius: Float = 0f //半径
+    private var canvasType: Int = 0 //模式 见attrs/RainbowColorView/graph_type说明
+    private var isPreviewCircle: Boolean = false //是否预览圆形
+
+    private var colors: IntArray? = null //渐变rgb容器
+    private var positions: FloatArray? = null //渐变rgb范围容器
 
     private val alphaBitmap by lazy {
         BitmapFactory.decodeResource(resources, R.drawable.color_select_bg_trans_01)
@@ -46,11 +45,11 @@ class RainbowColorBarView : View {
     }
 
     private fun initView(context: Context, attrs: AttributeSet?) {
-        val typeArray = context.obtainStyledAttributes(attrs, R.styleable.RainbowColorBarView)
-        canvasRadius = typeArray.getDimension(R.styleable.RainbowColorBarView_round, 0f)
-        canvasType = typeArray.getInt(R.styleable.RainbowColorBarView_graph_type, 1)
-        canvasType = typeArray.getInt(R.styleable.RainbowColorBarView_graph_type, 1)
-        isPreviewCircle = typeArray.getBoolean(R.styleable.RainbowColorBarView_preview_circle, false)
+        val typeArray = context.obtainStyledAttributes(attrs, R.styleable.RainbowColorView)
+        canvasRadius = typeArray.getDimension(R.styleable.RainbowColorView_round, 0f)
+        canvasType = typeArray.getInt(R.styleable.RainbowColorView_graph_type, 1)
+        canvasType = typeArray.getInt(R.styleable.RainbowColorView_graph_type, 1)
+        isPreviewCircle = typeArray.getBoolean(R.styleable.RainbowColorView_preview_circle, false)
         typeArray.recycle()
         paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
         rectF = RectF()
@@ -76,6 +75,10 @@ class RainbowColorBarView : View {
                 srcPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
                 srcPaint?.isAntiAlias = true
                 srcPaint?.shader = BitmapShader(alphaBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+            }
+
+            4 -> {
+
             }
         }
         setWillNotDraw(false)
@@ -129,6 +132,10 @@ class RainbowColorBarView : View {
                     srcPaint?.let { canvas.drawRoundRect(rectF!!, canvasRadius, canvasRadius, it) }
                     canvas.drawRoundRect(rectF!!, canvasRadius, canvasRadius, paint!!)
                 }
+            }
+
+            4 -> {
+
             }
         }
     }

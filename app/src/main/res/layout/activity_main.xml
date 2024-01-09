@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_root"
     android:layout_width="match_parent"
@@ -17,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.example.colorselectpickerview.color_select.ColorSelectPickerView
+            <com.select.color_picker.ColorSelectPickerView
                 android:id="@+id/color_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -27,13 +26,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="100dp"
-                android:shadowColor="#fff"
-                android:shadowDx="4"
-                android:shadowDy="4"
-                android:text="响应颜色变化改变背景色"
+                android:layout_marginTop="30dp"
+                android:text="测试文本测试文本测试文本测试文本"
                 android:textColor="#000"
                 android:textSize="20sp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 

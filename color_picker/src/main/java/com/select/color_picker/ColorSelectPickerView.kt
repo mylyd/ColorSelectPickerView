@@ -1,4 +1,4 @@
-package com.example.colorselectpickerview.color_select
+package com.select.color_picker
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
-import com.example.colorselectpickerview.R
 
 
 /**
@@ -18,16 +17,16 @@ import com.example.colorselectpickerview.R
  */
 class ColorSelectPickerView : LinearLayout {
 
-    private lateinit var colorView: RainbowColorBarView //彩虹条View
+    private lateinit var colorView: RainbowColorView //彩虹条View
     private lateinit var colorBar: View //彩虹条index
 
-    private lateinit var alphaView: RainbowColorBarView //透明度View
+    private lateinit var alphaView: RainbowColorView //透明度View
     private lateinit var alphaBar: View //透明度index
 
     private lateinit var colorBoardBar: View //明暗度index
     private lateinit var vBgColor: View
 
-    private var previewBar: RainbowColorBarView? = null
+    private var previewBar: RainbowColorView? = null
 
     private lateinit var colorSelectBarLP: FrameLayout.LayoutParams
     private lateinit var alphaSelectBarLP: FrameLayout.LayoutParams
