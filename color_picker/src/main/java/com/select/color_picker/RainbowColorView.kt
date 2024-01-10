@@ -6,12 +6,13 @@ import android.graphics.BitmapFactory
 import android.graphics.BitmapShader
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.ComposeShader
 import android.graphics.LinearGradient
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.graphics.RectF
 import android.graphics.Shader
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.annotation.ColorInt
 
@@ -22,9 +23,9 @@ import androidx.annotation.ColorInt
  */
 class RainbowColorView : View {
 
-    private var paint: Paint? = null
-    private var srcPaint: Paint? = null
-    private var rectF: RectF? = null
+    private var paint: Paint? = null //主色
+    private var srcPaint: Paint? = null //资源
+    private var rectF: RectF? = null //矩形
 
     private var canvasRadius: Float = 0f //半径
     private var canvasType: Int = 0 //模式 见attrs/RainbowColorView/graph_type说明
@@ -33,6 +34,17 @@ class RainbowColorView : View {
     private var colors: IntArray? = null //渐变rgb容器
     private var positions: FloatArray? = null //渐变rgb范围容器
 
+    /*白色渐变*/
+    private val gradientWhiteToAlpha by lazy {
+        LinearGradient(0f, 0f, width.toFloat(), 0f, Color.WHITE, Color.TRANSPARENT, Shader.TileMode.CLAMP)
+    }
+
+    /*黑色渐变*/
+    private val gradientBlackToAlpha by lazy {
+        LinearGradient(0f, height.toFloat(), 0f, 0f, Color.BLACK, Color.TRANSPARENT, Shader.TileMode.CLAMP)
+    }
+
+    /*透明图层*/
     private val alphaBitmap by lazy {
         BitmapFactory.decodeResource(resources, R.drawable.color_select_bg_trans_01)
     }
@@ -78,7 +90,9 @@ class RainbowColorView : View {
             }
 
             4 -> {
-
+                srcPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
+                srcPaint?.isAntiAlias = true
+                srcPaint?.color = Color.RED
             }
         }
         setWillNotDraw(false)
@@ -107,6 +121,17 @@ class RainbowColorView : View {
         invalidate()
     }
 
+    /**
+     * 设置明暗度底色
+     *
+     * @param paintColor
+     */
+    fun setPaintColor(@ColorInt paintColor: Int) {
+        if (canvasType != 4) return
+        srcPaint?.color = paintColor
+        invalidate()
+    }
+
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -124,7 +149,6 @@ class RainbowColorView : View {
 
             3 -> {
                 paint?.shader = null
-
                 if (isPreviewCircle) {
                     srcPaint?.let { canvas.drawCircle(height / 2f, height / 2f, height / 2f, it) }
                     canvas.drawCircle(height / 2f, height / 2f, height / 2f, paint!!)
@@ -135,19 +159,28 @@ class RainbowColorView : View {
             }
 
             4 -> {
+                if (canvasRadius > 0f) {
+                    //补偿一个像素，处理绘制后左上角圆角会出现边缘泛红问题
+                    rectF?.left = 0.5f
+                    rectF?.top = 0.5f
+                }
+                canvas.drawRoundRect(rectF!!, canvasRadius, canvasRadius, srcPaint!!)
+                //还原补偿的像素
+                rectF?.left = 0f
+                rectF?.top = 0f
+                paint?.shader = ComposeShader(gradientWhiteToAlpha, gradientBlackToAlpha, PorterDuff.Mode.SRC_OVER)
 
+                canvas.drawRoundRect(rectF!!, canvasRadius, canvasRadius, paint!!)
             }
         }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.d("RainbowColorBarView", "onSizeChanged ")
         if (canvasType == 3 && isPreviewCircle && oldw != oldh) {
             val lp = layoutParams
             lp.width = lp.height
             layoutParams = lp
-            Log.d("RainbowColorBarView", "onSizeChanged 1")
         }
         rectF?.set(0f, 0f, width.toFloat(), height.toFloat())
     }

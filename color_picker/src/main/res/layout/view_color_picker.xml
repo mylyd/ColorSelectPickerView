@@ -5,34 +5,27 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/fl_color"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_gravity="center_horizontal"
+    <FrameLayout
         android:layout_marginHorizontal="36dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="#FFFF0000"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="0dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <View
+        <com.select.color_picker.RainbowColorView
+            android:id="@+id/color_board"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/color_select_shape_white_gradually_trans" />
+            android:layout_height="240dp"
+            android:layout_gravity="center_vertical"
+            app:graph_type="color_board"
+            app:round="8dp" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/color_select_shape_black_gradually_trans" />
-
-        <View
-            android:id="@+id/view_location"
+            android:id="@+id/view_select_color_location"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:background="@drawable/color_select_shape_stroke_dot" />
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"

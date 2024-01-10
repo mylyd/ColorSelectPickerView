@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import com.select.color_picker.ColorSelectPickerView
+import com.select.color_picker.ColorSelectView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val tvTest: TextView = findViewById(R.id.tv_text)
         val view: View = findViewById(R.id.view)
-        findViewById<ColorSelectPickerView>(R.id.color_picker).colorChanged = {
+        findViewById<ColorSelectView>(R.id.color_picker).colorChanged = {
             tvTest.setTextColor(it)
             view.setBackgroundColor(it)
         }

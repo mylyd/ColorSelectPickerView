@@ -15,7 +15,7 @@ import androidx.annotation.ColorInt
 /**
  * 颜色选择预览
  */
-class ColorSelectPickerView : LinearLayout {
+class ColorSelectView : LinearLayout {
 
     private lateinit var colorView: RainbowColorView //彩虹条View
     private lateinit var colorBar: View //彩虹条index
@@ -23,14 +23,14 @@ class ColorSelectPickerView : LinearLayout {
     private lateinit var alphaView: RainbowColorView //透明度View
     private lateinit var alphaBar: View //透明度index
 
+    private lateinit var boardView: RainbowColorView //明暗度View
     private lateinit var colorBoardBar: View //明暗度index
-    private lateinit var vBgColor: View
 
     private var previewBar: RainbowColorView? = null
 
-    private lateinit var colorSelectBarLP: FrameLayout.LayoutParams
-    private lateinit var alphaSelectBarLP: FrameLayout.LayoutParams
-    private lateinit var colorBoardLP: FrameLayout.LayoutParams
+    private lateinit var colorSelectBarLP: MarginLayoutParams
+    private lateinit var alphaSelectBarLP: MarginLayoutParams
+    private lateinit var colorBoardLP: MarginLayoutParams
 
     /*当前彩虹条 rgb*/
     private var colorRed = 255
@@ -57,9 +57,9 @@ class ColorSelectPickerView : LinearLayout {
     private fun initView() {
         val view = LayoutInflater.from(context).inflate(R.layout.view_color_picker, this)
         /*明暗度*/
-        vBgColor = view.findViewById(R.id.fl_color)
-        colorBoardBar = view.findViewById(R.id.view_location)
-        colorBoardLP = colorBoardBar.layoutParams as FrameLayout.LayoutParams
+        boardView = view.findViewById(R.id.color_board)
+        colorBoardBar = view.findViewById(R.id.view_select_color_location)
+        colorBoardLP = colorBoardBar.layoutParams as MarginLayoutParams
 
         /*预览*/
         previewBar = view.findViewById(R.id.preview_color)
@@ -67,12 +67,12 @@ class ColorSelectPickerView : LinearLayout {
         /*彩虹条*/
         colorView = findViewById(R.id.view_color)
         colorBar = view.findViewById(R.id.view_select_color_bar)
-        colorSelectBarLP = colorBar.layoutParams as FrameLayout.LayoutParams
+        colorSelectBarLP = colorBar.layoutParams as MarginLayoutParams
 
         /*透明度*/
         alphaView = view.findViewById(R.id.view_alpha)
         alphaBar = view.findViewById(R.id.view_select_alpha_bar)
-        alphaSelectBarLP = alphaBar.layoutParams as FrameLayout.LayoutParams
+        alphaSelectBarLP = alphaBar.layoutParams as MarginLayoutParams
 
         layoutTouch()
     }
@@ -124,9 +124,9 @@ class ColorSelectPickerView : LinearLayout {
         }
 
         /*调整颜色明暗*/
-        vBgColor.setOnTouchListener { _, event ->
-            val width = vBgColor.width
-            val height = vBgColor.height
+        boardView.setOnTouchListener { _, event ->
+            val width = boardView.width
+            val height = boardView.height
             val leftMargin: Int
             val topMargin: Int
             when (event.action) {
@@ -199,7 +199,7 @@ class ColorSelectPickerView : LinearLayout {
 
             else -> colorRed = 255
         }
-        vBgColor.setBackgroundColor(Color.rgb(colorRed, colorGreen, colorBlue))
+        boardView.setPaintColor(Color.rgb(colorRed, colorGreen, colorBlue))
         changeColorBoard()
     }
 
@@ -210,8 +210,8 @@ class ColorSelectPickerView : LinearLayout {
         var tempRed = colorRed
         var tempGreen = colorGreen
         var tempBlue = colorBlue
-        val xPercent = 1 - colorBoardBar.x / (vBgColor.width - colorBoardBar.width)
-        val yPercent = colorBoardBar.y / (vBgColor.height - colorBoardBar.height)
+        val xPercent = 1 - colorBoardBar.x / (boardView.width - colorBoardBar.width)
+        val yPercent = colorBoardBar.y / (boardView.height - colorBoardBar.height)
         when (index) {
             0, 5, 6 -> {
                 tempGreen = (colorGreen + xPercent * (255 - colorGreen)).toInt()
@@ -263,7 +263,7 @@ class ColorSelectPickerView : LinearLayout {
         super.onWindowFocusChanged(hasWindowFocus)
 
         val layoutParams = colorBoardBar.layoutParams as FrameLayout.LayoutParams
-        layoutParams.leftMargin = initBarPosition(BarIndex.End, vBgColor, colorBoardBar)
+        layoutParams.leftMargin = initBarPosition(BarIndex.End, boardView, colorBoardBar)
         colorBoardBar.layoutParams = layoutParams
 
         colorSelectBarLP.leftMargin = initBarPosition(BarIndex.Start, colorView, colorBar)

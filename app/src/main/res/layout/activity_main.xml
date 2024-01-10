@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.select.color_picker.ColorSelectPickerView
+            <com.select.color_picker.ColorSelectView
                 android:id="@+id/color_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
