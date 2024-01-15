@@ -62,7 +62,6 @@ class RainbowColorView : View {
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.RainbowColorView)
         canvasRadius = typeArray.getDimension(R.styleable.RainbowColorView_round, 0f)
         canvasType = typeArray.getInt(R.styleable.RainbowColorView_graph_type, 1)
-        canvasType = typeArray.getInt(R.styleable.RainbowColorView_graph_type, 1)
         isPreviewCircle = typeArray.getBoolean(R.styleable.RainbowColorView_preview_circle, false)
         isSquare = typeArray.getBoolean(R.styleable.RainbowColorView_is_square, false)
         typeArray.recycle()
