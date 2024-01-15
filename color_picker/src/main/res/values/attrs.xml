@@ -15,6 +15,8 @@
         </attr>
         <!--预览是否是圆形，默认是矩形，仅在设 graph_type = preview_strip 时生效 ； 且圆形的直径大小取决于高度，不会取决于宽度-->
         <attr name="preview_circle" format="boolean" />
+        <!--明暗度色板 是否是正方形 ，以宽度为标准-->
+        <attr name="is_square" format="boolean"/>
     </declare-styleable>
 
 </resources>

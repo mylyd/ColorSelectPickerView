@@ -30,6 +30,7 @@ class RainbowColorView : View {
     private var canvasRadius: Float = 0f //半径
     private var canvasType: Int = 0 //模式 见attrs/RainbowColorView/graph_type说明
     private var isPreviewCircle: Boolean = false //是否预览圆形
+    private var isSquare: Boolean = false //是否正方形
 
     private var colors: IntArray? = null //渐变rgb容器
     private var positions: FloatArray? = null //渐变rgb范围容器
@@ -62,6 +63,7 @@ class RainbowColorView : View {
         canvasType = typeArray.getInt(R.styleable.RainbowColorView_graph_type, 1)
         canvasType = typeArray.getInt(R.styleable.RainbowColorView_graph_type, 1)
         isPreviewCircle = typeArray.getBoolean(R.styleable.RainbowColorView_preview_circle, false)
+        isSquare = typeArray.getBoolean(R.styleable.RainbowColorView_is_square, false)
         typeArray.recycle()
         paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
         rectF = RectF()
@@ -177,9 +179,14 @@ class RainbowColorView : View {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        if (canvasType == 3 && isPreviewCircle && oldw != oldh) {
+        if (canvasType == 3 && oldw != oldh) {
             val lp = layoutParams
-            lp.width = lp.height
+            if (isPreviewCircle){
+                lp.width = lp.height
+            }
+            if (isSquare){
+                lp.height = lp.width
+            }
             layoutParams = lp
         }
         rectF?.set(0f, 0f, width.toFloat(), height.toFloat())
