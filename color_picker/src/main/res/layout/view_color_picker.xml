@@ -14,7 +14,8 @@
         <com.select.color_picker.RainbowColorView
             android:id="@+id/color_board"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="110dp"
+            app:is_square="true"
             android:layout_gravity="center_vertical"
             app:graph_type="color_board"
             app:round="8dp" />

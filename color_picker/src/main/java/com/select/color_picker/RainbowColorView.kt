@@ -14,6 +14,7 @@ import android.graphics.RectF
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.View
+import android.widget.FrameLayout.LayoutParams
 import androidx.annotation.ColorInt
 
 /**
@@ -42,7 +43,7 @@ class RainbowColorView : View {
 
     /*黑色渐变*/
     private val gradientBlackToAlpha by lazy {
-        LinearGradient(0f, height.toFloat(), 0f, 0f, Color.BLACK, Color.TRANSPARENT, Shader.TileMode.CLAMP)
+        LinearGradient(0f, if (isSquare) width.toFloat() else height.toFloat(), 0f, 0f, Color.BLACK, Color.TRANSPARENT, Shader.TileMode.CLAMP)
     }
 
     /*透明图层*/
@@ -179,14 +180,14 @@ class RainbowColorView : View {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        if (canvasType == 3 && oldw != oldh) {
+        if (canvasType == 3 && isPreviewCircle) {
             val lp = layoutParams
-            if (isPreviewCircle){
-                lp.width = lp.height
-            }
-            if (isSquare){
-                lp.height = lp.width
-            }
+            lp.width = lp.height
+            layoutParams = lp
+        }
+        if (canvasType == 4 && isSquare) {
+            val lp = layoutParams
+            lp.height = w
             layoutParams = lp
         }
         rectF?.set(0f, 0f, width.toFloat(), height.toFloat())
